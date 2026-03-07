@@ -106,7 +106,7 @@ export const testimonialsApi = {
 export const blogsApi = {
   getAll: async (params?: { category?: string; featured?: boolean; page?: number }) => {
     const response = await api.get<PaginatedResponse<Blog>>('/blogs/', { params });
-    return response.data;
+    return response.data.results || [];
   },
 
   getBySlug: async (slug: string) => {

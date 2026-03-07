@@ -2,11 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import WhatsAppButton from '@/components/ui/WhatsAppButton';
+import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
-import StudentChatWidget from '@/components/ui/StudentChatWidget';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -93,12 +90,8 @@ export default function RootLayout({
             },
           }}
         />
-        <Header />
         <AnalyticsTracker />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <StudentChatWidget />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

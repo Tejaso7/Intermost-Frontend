@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { storage } from './utils';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
@@ -16,7 +17,7 @@ api.interceptors.request.use(
   (config) => {
     // Add auth token if available
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('access_token');
+      const token = storage.get<string>('access_token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -41,22 +42,22 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem('refresh_token');
+        const refreshToken = storage.get<string>('refresh_token');
         if (refreshToken) {
           const response = await axios.post(`${API_URL}/auth/refresh/`, {
             refresh: refreshToken,
           });
           
           const { access } = response.data;
-          localStorage.setItem('access_token', access);
+          storage.set('access_token', access);
           
           originalRequest.headers.Authorization = `Bearer ${access}`;
           return api(originalRequest);
         }
       } catch (refreshError) {
         // Clear tokens and redirect to login
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        storage.remove('access_token');
+        storage.remove('refresh_token');
         if (typeof window !== 'undefined') {
           window.location.href = '/admin/login';
         }
