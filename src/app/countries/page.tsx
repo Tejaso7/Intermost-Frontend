@@ -34,7 +34,7 @@ export default async function CountriesPage() {
         flag_url: c.flag_url,
         total_fee: c.pricing?.total_course_fee || 'Contact Us',
         duration: c.course_details?.duration || '6 Years',
-        hero_image: c.hero_image || c.banner_image,
+        hero_image: c.hero_image || c.banner_image || '',
         recognition: c.course_details?.recognition || ['NMC', 'WHO'],
         is_featured: c.meta?.is_featured,
       }));
