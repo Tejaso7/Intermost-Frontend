@@ -13,12 +13,11 @@ const fallbackNews: News[] = [
   {
     _id: '1',
     title: 'Intermost Education Fair 2025',
-    content: 'Join us at our upcoming education fair to learn about MBBS opportunities abroad.',
+    description: 'Join us at our upcoming education fair to learn about MBBS opportunities abroad.',
     media_type: 'image',
     media_url: '/images/news/fair.jpg',
-    thumbnail: '/images/news/fair.jpg',
     location: 'New Delhi',
-    badge: 'Upcoming',
+    badge_text: 'Upcoming',
     is_active: true,
     display_order: 1,
     created_at: new Date().toISOString(),
@@ -26,12 +25,11 @@ const fallbackNews: News[] = [
   {
     _id: '2',
     title: 'Student Success Stories',
-    content: 'Our students share their experiences studying MBBS abroad.',
+    description: 'Our students share their experiences studying MBBS abroad.',
     media_type: 'image',
     media_url: '/images/countries/georgia.jpg',
-    thumbnail: '/images/countries/georgia.jpg',
     location: 'Russia',
-    badge: 'Featured',
+    badge_text: 'Featured',
     is_active: true,
     display_order: 2,
     created_at: new Date().toISOString(),
@@ -39,7 +37,7 @@ const fallbackNews: News[] = [
   {
     _id: '3',
     title: 'Admissions Open for 2026',
-    content: 'Apply now for MBBS admissions in Russia, Georgia, and Uzbekistan.',
+    description: 'Apply now for MBBS admissions in Russia, Georgia, and Uzbekistan.',
     media_type: 'marquee',
     is_active: true,
     display_order: 3,
@@ -131,7 +129,7 @@ export default function NewsSection() {
                   <>
                     <video
                       src={item.media_url}
-                      poster={item.thumbnail}
+                      poster={item.media_url}
                       className="w-full h-full object-cover"
                       muted
                     />
@@ -143,7 +141,7 @@ export default function NewsSection() {
                   </>
                 ) : (
                   <Image
-                    src={item.media_url || item.thumbnail || '/images/placeholder.jpg'}
+                    src={item.media_url || '/images/placeholder.jpg'}
                     alt={item.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -151,9 +149,9 @@ export default function NewsSection() {
                 )}
                 
                 {/* Badge */}
-                {item.badge && (
+                {item.badge_text && (
                   <span className="absolute top-4 left-4 px-3 py-1 bg-primary-600 text-white text-xs font-semibold rounded-full">
-                    {item.badge}
+                    {item.badge_text}
                   </span>
                 )}
               </div>
@@ -164,7 +162,7 @@ export default function NewsSection() {
                   {item.title}
                 </h3>
                 <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                  {item.content}
+                  {item.description}
                 </p>
                 
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
